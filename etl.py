@@ -6,38 +6,49 @@ from sql_queries import *
 
 
 def process_song_file(cur, filepath):
+    """
+    Processes a song file and uploads the data to the `artists` and `songs` tables. 
+    """
     # open song file
-    df = 
+    df = pd.read_json(filepath, lines=True)
 
     # insert song record
-    song_data = 
+    song_data = song_data = df[['song_id','title','artist_id','year','duration']].values[0]
     cur.execute(song_table_insert, song_data)
     
     # insert artist record
-    artist_data = 
+    artist_data = df[['artist_id','artist_name','artist_location','artist_latitude','artist_longitude']].values[0]
     cur.execute(artist_table_insert, artist_data)
 
 
 def process_log_file(cur, filepath):
+    """
+    Processes a log file and uploads the data to the `time`, `users` and `songplays` tables. 
+    An intermediate SQL query is done to get song_id and artist_id from the songs and artist
+    tables.
+    """
     # open log file
-    df = 
+    df = pd.read_json(filepath, lines=True)
 
     # filter by NextSong action
-    df = 
+    df = df[df.page=='NextSong']
 
     # convert timestamp column to datetime
-    t = 
+    df['ts'] = pd.to_datetime(df['ts'],unit='ms')
+    t = df["ts"]
     
     # insert time data records
-    time_data = 
-    column_labels = 
-    time_df = 
+    time_data = (t.values, t.dt.hour.values, t.dt.day.values, t.dt.weekofyear.values, t.dt.month.values, t.dt.year.values,t.dt.weekday.values)
+    column_labels = ('start_time', 'hour', 'day', 'week', 'month', 'year', 'weekday')
+    data = {label:data for label, data in zip(column_labels, time_data)}
+    time_df = pd.DataFrame(data)
+    
 
     for i, row in time_df.iterrows():
         cur.execute(time_table_insert, list(row))
 
     # load user table
-    user_df = 
+    user_df = df[['userId','firstName','lastName','gender','level']]
 
     # insert user records
     for i, row in user_df.iterrows():
@@ -52,15 +63,20 @@ def process_log_file(cur, filepath):
         
         if results:
             songid, artistid = results
+            print(results)
         else:
             songid, artistid = None, None
 
         # insert songplay record
-        songplay_data = 
+        songplay_data = (row["ts"], row["userId"], row["level"], songid, artistid, row["sessionId"], row["location"],row["userAgent"])
         cur.execute(songplay_table_insert, songplay_data)
 
 
 def process_data(cur, conn, filepath, func):
+    """
+    Loops through the folderss where the files in `filepath` are and applies
+    the uploading function `func` to insert data into the database.
+    """
     # get all files matching extension from directory
     all_files = []
     for root, dirs, files in os.walk(filepath):
@@ -80,6 +96,16 @@ def process_data(cur, conn, filepath, func):
 
 
 def main():
+    """
+    - Establishes connection with the sparkify database and gets
+    cursor to it.  
+    
+    - Processes song_data files and uploads data to the database.  
+    
+    - Processes log_data files and uploads data to the database.  
+    
+    - Finally, closes the connection. 
+    """
     conn = psycopg2.connect("host=127.0.0.1 dbname=sparkifydb user=student password=student")
     cur = conn.cursor()
 
