@@ -81,3 +81,23 @@ Based on this design the ETL implementation was straightforward:
 - Insert data on each table
 
 The python libraries psycopg2 and pandas where used in most of the implementation.
+
+## Docker
+
+A docker compose file is provided to run a Postgres Database locally for developing purposes. 
+
+```bash
+docker-compose up
+```
+
+A PgAdmin service is also included to help the user interact with the database. When creating the connection to the server keep in mind that the host should be the alias to the network e.g. `datamodelingpostgres-pgdatabase-1` or the IP of the container (This may change when the service is started), using the alias is recommended. If not sure which is the alias find the container ID and then get the aliases with the container ID.
+
+```bash
+docker ps -a
+```
+
+Remember to select the ID that corresponds to the Postgres Image, not PgAdmin.
+
+```bash
+docker inspect {CONTAINER_ID}  | grep -A 4 Aliases
+```
