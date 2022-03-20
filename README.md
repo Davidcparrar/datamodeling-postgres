@@ -11,7 +11,7 @@ The project has been created with the following structure:
 ├── create_tables.py
 ├── data
 │   ├── log_data
-│   └── song_data
+│   └── song_data 
 ├── etl.ipynb
 ├── etl.py
 ├── sql_queries.py
@@ -42,7 +42,7 @@ If any problems are encountered it is recommended to run the development noteboo
 
 ## Star Schema
 
-A star schema was implemented in orther to make queries about the usage of the streaming app as simple as possible. With the implemented schema it is simpler to do queries based on the preferences of the users:
+A star schema was implemented in order to make queries about the usage of the streaming app as simple as possible. With the implemented schema it is simpler to do queries based on the preferences of the users:
 
 Where are the most loyal users?
 
