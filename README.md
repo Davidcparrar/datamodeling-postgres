@@ -18,16 +18,16 @@ The project has been created with the following structure:
 └── test.ipynb
 ```
 
-- create_tables.py: Script that deletes the database and tables if they already exists and then recreates the database with all the tables 
+- create_tables.py: Script that deletes the database and tables if they already exists and then recreates an empty the database with just the schema (db+tables)
 - etl.ipynb: Developmental notebook. Used to test the creation of the database and the basic insert commands.
-- etl.py: Production script that inserts the data into the star schema
+- etl.py: Production script that inserts the data into the Star Schema
 - sql_queries.py: Saved queries for the creation, insertion and deletion of the database
 - test.ipynb: SQL queries to check the structure of the database
 - data: Database raw data in json files.
 
 ## Usage
 
-2 datasets, log_data and  song_data, have been migrated trough and ETL process to the PostgreSQL database.
+2 datasets, log_data and song_data, have been migrated trough and ETL process to the PostgreSQL database.
 
 To build the database please execute the following commands in the terminal:
 
