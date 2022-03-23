@@ -12,18 +12,23 @@ The project has been created with the following structure:
 ├── data
 │   ├── log_data
 │   └── song_data 
+├── docker-compose.yaml
 ├── etl.ipynb
 ├── etl.py
+├── PostgresStarSchemaSparkify.svg
+├── requirements.txt
 ├── sql_queries.py
 └── test.ipynb
 ```
 
-- create_tables.py: Script that deletes the database and tables if they already exists and then recreates an empty the database with just the schema (db+tables)
+- create_tables.py: Script that deletes the database and tables if they already exists and then recreates an empty the database with just the schema (db+tables).
 - etl.ipynb: Developmental notebook. Used to test the creation of the database and the basic insert commands.
-- etl.py: Production script that inserts the data into the Star Schema
-- sql_queries.py: Saved queries for the creation, insertion and deletion of the database
-- test.ipynb: SQL queries to check the structure of the database
+- etl.py: Production script that inserts the data into the Star Schema.
+- sql_queries.py: Saved queries for the creation, insertion and deletion of the database.
+- test.ipynb: SQL queries to check the structure of the database.
 - data: Database raw data in json files.
+- docker-compose.yaml: Docker compose file for PgAdmin and PostgreSQL.
+- requirements.txt: requirements for python env.
 
 ## Usage
 
