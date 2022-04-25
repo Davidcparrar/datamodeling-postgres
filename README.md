@@ -95,7 +95,7 @@ A docker compose file is provided to run a Postgres Database locally for develop
 docker-compose up
 ```
 
-A PgAdmin service is also included to help the user interact with the database. When creating the connection to the server keep in mind that the host should be the alias to the network e.g. `datamodelingpostgres-pgdatabase-1` or the IP of the container (This may vary when the service is started), using the alias is recommended. If not sure which is the alias, find the container ID and get the aliases with the container ID.
+A PgAdmin service is also included to help the user interact with the database. When creating the connection to the server keep in mind that the host should be the alias to the network e.g. `datamodeling-postgres-pgdatabase-1` or the IP of the container (This may vary when the service is started), using the alias is recommended. If not sure which is the alias, find the container ID and get the aliases with the container ID.
 
 ```bash
 docker ps -a
